@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pertemuan Tiga</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <input type="text" id="filters" onkeyup="filter()" placeholder="Cari Namanya..." class="form-control">
+    <table class="table table-dark" id="tabelPercobaan">
+        <thead>
+            <tr>
+                <td scope="col">Nama</td>
+                <td scope="col">Preiode Rotasi</td>
+                <td scope="col">Periode Orbit</td>
+                <td scope="col">Diameter</td>
+                <td scope="col">Climate</td>
+                <td scope="col">Gravitasi</td>
+                <td scope="col">Terain</td>
+                <td scope="col">Kadar Air</td>
+                <td scope="col">Populasi</td>
+                <td scope="col">Refrensi</td>
+                <td scope="col">Film</td>
+                <td scope="col">Created</td>
+                <td scope="col">Edited</td>
+                <td scope="col">URL</td>
+            </tr>
+        </thead>
+        <tbody id="record">
+
+        </tbody>
+    </table>
+</body>
+<script src="app.js"></script>
+<script>
+    const results = data.results
+    results.forEach(function(anonym){
+        document.getElementById("record").innerHTML +=
+        "<tr><td>"+anonym.name+"</td><td>"+anonym.rotation_period+"</td><td>"+anonym.orbital_period+"</td><td>"+anonym.diameter+"</td><td>"+anonym.climate+"</td><td>"+anonym.gravity+"</td><td>"+anonym.terrain+"</td><td>"+anonym.surface_water+"</td><td>"+anonym.population+"</td><td>"+anonym.residents+"</td><td>"+anonym.films+"</td><td>"+anonym.created+"</td><td>"+anonym.edited+"</td><td>"+anonym.url+"</td></tr>";
+    });
+    function filter(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filters");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("tabelPercobaan");
+        tr = table.getElementsByTagName("tr");
+
+        for(i = 0; i < tr.length; i++){
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td){
+                txtValue = td.textContent || td.innerText;
+                if(txtValue.toUpperCase().indexOf(filter) > -1){
+                    tr[i].style.display = "";
+                }else{
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</html>
