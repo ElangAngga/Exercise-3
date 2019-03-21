@@ -12,20 +12,20 @@
     <table class="table table-dark" id="tabelPercobaan">
         <thead>
             <tr>
-                <td scope="col">Nama</td>
-                <td scope="col">Preiode Rotasi</td>
-                <td scope="col">Periode Orbit</td>
-                <td scope="col">Diameter</td>
-                <td scope="col">Climate</td>
-                <td scope="col">Gravitasi</td>
-                <td scope="col">Terain</td>
-                <td scope="col">Kadar Air</td>
-                <td scope="col">Populasi</td>
-                <td scope="col">Refrensi</td>
-                <td scope="col">Film</td>
-                <td scope="col">Created</td>
-                <td scope="col">Edited</td>
-                <td scope="col">URL</td>
+                <td scope="col" onclick="sort(0)">Nama</td>
+                <td scope="col" onclick="sort(1)">Preiode Rotasi</td>
+                <td scope="col" onclick="sort(2)">Periode Orbit</td>
+                <td scope="col" onclick="sort(3)">Diameter</td>
+                <td scope="col" onclick="sort(4)">Climate</td>
+                <td scope="col" onclick="sort(5)">Gravitasi</td>
+                <td scope="col" onclick="sort(6)">Terain</td>
+                <td scope="col" onclick="sort(7)">Kadar Air</td>
+                <td scope="col" onclick="sort(8)">Populasi</td>
+                <td scope="col" onclick="sort(9)">Refrensi</td>
+                <td scope="col" onclick="sort(10)">Film</td>
+                <td scope="col" onclick="sort(11)">Created</td>
+                <td scope="col" onclick="sort(12)">Edited</td>
+                <td scope="col" onclick="sort(13)">URL</td>
             </tr>
         </thead>
         <tbody id="record">
@@ -53,8 +53,52 @@
                 txtValue = td.textContent || td.innerText;
                 if(txtValue.toUpperCase().indexOf(filter) > -1){
                     tr[i].style.display = "";
-                }else{
+                }
+                else{
                     tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function sort(n){
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchAccount = 0;
+        table = document.getElementById("tabelPercobaan");
+        switching = true;
+
+        dir = "asc";
+
+        while(switching){
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++){
+                shouldSwitch = false;
+
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+
+                if(dir == "asc"){
+                    if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                else if(dir == "desc"){
+                    if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if(shouldSwitch){
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              switchAccount ++;
+            }
+            else{
+                if(switchAccount == 0 && dir == "asc"){
+                    dir = "desc"
+                    switching = true;
                 }
             }
         }
